@@ -74,7 +74,9 @@
     background-color: rgba(80, 80, 160, 1);
 }
 
-
+.bomb-tile {
+    background-color: red;
+}
 
 
 ::-webkit-scrollbar {
