@@ -39,8 +39,8 @@ function startGame(gridSize) {
     let score = 0
     let gameState
 
-    bombTiles.forEach(function (element, index) {
-        tiles[element - 1].classList.add("bomb-tile")
+    bombTiles.forEach(function (element) {
+        tiles[element - 1].classList.add("bomb-tile-debug")
     })
 
     tiles.forEach(function (tile, i) {
@@ -57,6 +57,12 @@ function startGame(gridSize) {
                     console.log(tileNum, score)
 
                     if (score === (gridSize - 16)) {
+
+                        bombTiles.forEach(function (element) {
+                            tiles[element - 1].classList.remove("bomb-tile-debug")
+                            tiles[element - 1].classList.add("bomb-tile")
+                        })
+                        
                         console.log("you win!")
                         console.log("Final Score = ", score)
                         gameState = "win"
@@ -64,6 +70,11 @@ function startGame(gridSize) {
                 }
 
             } else {
+
+                bombTiles.forEach(function (element) {
+                    tiles[element - 1].classList.remove("bomb-tile-debug")
+                    tiles[element - 1].classList.add("bomb-tile")
+                })
 
                 console.log("you lose!")
                 console.log("Final Score = ", score)

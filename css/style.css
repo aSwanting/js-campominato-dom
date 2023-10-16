@@ -71,8 +71,13 @@
 }
 
 .bomb-tile {
-    background-color: red;
+    background-color: rgba(201, 43, 43, 0.8);
 }
+
+.bomb-tile-debug {
+    background-color: rgba(150, 92, 156, 0.8);
+}
+
 
 .game-result {
     text-align: center;
