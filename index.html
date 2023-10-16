@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineSweeper</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <main class="app">
+
+        <div class="app-main">
+
+            <h1 class="display-2 text-center text-white mb-5">MineSweeper</h1>
+
+            <div class="grid-wrapper" id="grid-wrapper"> </div>
+
+        </div>
+
+        <div class="app-toolbar">
+
+            <select class="form-select level-select" id="level-select"> 
+                <option value="0">Easy</option>
+                <option selected value="1">Medium</option>
+                <option value="2">Hard</option>
+            </select>
+
+            <button class="btn btn-light" id="play-button">Play!</button>
+
+        </div>
+
+    </main>
+
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
