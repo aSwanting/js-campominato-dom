@@ -34,15 +34,15 @@
     grid-template-columns: repeat(10, 1fr);
 }
 
-.scoreboard {   
+.scoreboard {
     display: none;
     justify-content: center;
     gap: 25px;
-    color: white;    
+    color: white;
 }
 
-.scoreboard > * {
-    padding: 8px 15px;
+.scoreboard>* {
+    padding: 8px 20px;
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.1);
@@ -50,7 +50,7 @@
 }
 
 .scoreboard span {
-    text-align: center;
+    text-align: left;
     display: inline-block;
     padding-inline: 15px;
     font-weight: 500;
@@ -68,8 +68,12 @@
     justify-content: center;
 }
 
-.app-toolbar .level-select {
-    max-width: 200px;
+.app-toolbar :is(.play-button, .bomb-number, .level-select) {
+    width: 100%;
+    border: 2px solid rgba(93, 172, 62, 0.39);
+    cursor: pointer;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 .tile {
@@ -99,10 +103,6 @@
     background-color: rgba(201, 43, 43, 0.8);
 }
 
-.bomb-tile-debug {
-    background-color: rgba(150, 92, 156, 0.8);
-}
-
 .game-result {
     text-align: center;
     color: white;
@@ -128,3 +128,12 @@
 ::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.5);
 }
+
+/* DEBUG */
+
+.debug .bomb-tile-debug {
+    background-color: rgba(150, 92, 156, 0.8);
+}
+
+
+

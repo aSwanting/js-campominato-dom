@@ -6,11 +6,12 @@
 document.getElementById("play-button").addEventListener("click", function () {
 
     const difficulty = parseInt(document.getElementById("level-select").value)
+    const bombNum = parseInt(document.getElementById("bomb-number").value)
     let gridSize
     !difficulty ? gridSize = 100 : difficulty === 1 ? gridSize = 81 : gridSize = 49
 
     generateGrid(gridSize)
-    initializeGameLogic(gridSize, 16)
+    initializeGameLogic(gridSize, bombNum)
 
 })
 
@@ -50,9 +51,9 @@ function initializeGameLogic(gridSize, bombNum) {
     tileValue.innerHTML = remainingTiles
     bombValue.innerHTML = bombNum
 
-    // bombTiles.forEach(function (element) {
-    //     tiles[element - 1].classList.add("bomb-tile-debug")
-    // })
+    bombTiles.forEach(function (element) {
+        tiles[element - 1].classList.add("bomb-tile-debug")
+    })
 
     tiles.forEach(function (tile, i) {
         tile.addEventListener("click", function checkTile() {

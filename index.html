@@ -10,7 +10,8 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="!debug">
+
     <main class="app">
 
         <div class="app-main">
@@ -27,17 +28,34 @@
 
         </div>
 
-
-
         <div class="app-toolbar">
+            <div class="container">
 
-            <select class="form-select level-select" id="level-select">
-                <option value="0">Easy</option>
-                <option selected value="1">Medium</option>
-                <option value="2">Hard</option>
-            </select>
+                <div class="row">
 
-            <button class="btn btn-light" id="play-button">Play!</button>
+                    <div class="col">
+                        <select class="form-select level-select" id="level-select">
+                            <option value="0">Easy</option>
+                            <option selected value="1">Medium</option>
+                            <option value="2">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <button class="btn btn-success play-button" id="play-button">Play!</button>
+                    </div>
+
+                    <div class="col">
+                        <select class="form-select bomb-number" id="bomb-number">
+                            <option value="8">8 bombs</option>
+                            <option selected value="16">16 bombs</option>
+                            <option value="24">24 bombs</option>
+                            <option value="32">32 bombs</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
 
