@@ -19,6 +19,7 @@
     flex-grow: 1;
     margin: 0 auto;
     position: relative;
+    margin-bottom: 50px;
 }
 
 .grid-49 {
@@ -33,15 +34,39 @@
     grid-template-columns: repeat(10, 1fr);
 }
 
+.scoreboard {   
+    display: none;
+    justify-content: center;
+    gap: 25px;
+    color: white;    
+}
+
+.scoreboard > * {
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scoreboard span {
+    text-align: center;
+    display: inline-block;
+    padding-inline: 15px;
+    font-weight: 500;
+    color: rgb(255, 251, 0);
+    width: 20px;
+    font-size: larger;
+}
+
 .app-toolbar {
     background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     padding: 50px;
     display: flex;
     gap: 20px;
     justify-content: center;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .app-toolbar .level-select {
     max-width: 200px;
@@ -67,7 +92,7 @@
 }
 
 .tile.selected {
-    background-color: rgba(80, 80, 160, 0.5);
+    background-color: rgba(42, 151, 109, 0.5);
 }
 
 .bomb-tile {
@@ -78,24 +103,22 @@
     background-color: rgba(150, 92, 156, 0.8);
 }
 
-
 .game-result {
     text-align: center;
     color: white;
     position: absolute;
-    inset: 0;
-    background-color: #7fffd45e;
+    inset: -15px;
+    background-color: rgba(255, 255, 255, 0.25);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    box-shadow: 5px 5px 20px #00000080;
-    padding: 30px;
-    border: 5px solid;
-
+    backdrop-filter: blur(3px);
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.35);
 }
-
 
 ::-webkit-scrollbar {
     width: 14px;

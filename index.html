@@ -19,11 +19,19 @@
 
             <div class="grid-wrapper" id="grid-wrapper"> </div>
 
+            <div class="scoreboard" id="scoreboard">
+                <div class="score">Score: <span id="score-value"></span></div>
+                <div class="tiles-left">Remaining Safe Tiles: <span id="tile-value"></span></div>
+                <div class="current-bomb-tiles">Bomb Tiles: <span id="bomb-value"></span></div>
+            </div>
+
         </div>
+
+
 
         <div class="app-toolbar">
 
-            <select class="form-select level-select" id="level-select"> 
+            <select class="form-select level-select" id="level-select">
                 <option value="0">Easy</option>
                 <option selected value="1">Medium</option>
                 <option value="2">Hard</option>

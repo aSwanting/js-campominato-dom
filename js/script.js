@@ -10,7 +10,7 @@ document.getElementById("play-button").addEventListener("click", function () {
     !difficulty ? gridSize = 100 : difficulty === 1 ? gridSize = 81 : gridSize = 49
 
     generateGrid(gridSize)
-    startGame(gridSize)
+    initializeGameLogic(gridSize, 16)
 
 })
 
@@ -19,6 +19,8 @@ document.getElementById("play-button").addEventListener("click", function () {
 function generateGrid(gridSize) {
 
     const gridWrapper = document.getElementById("grid-wrapper")
+    const scoreBoard = document.getElementById("scoreboard")
+    scoreBoard.style.display = "flex"
     gridWrapper.className = "grid-wrapper grid-" + gridSize
     gridWrapper.innerHTML = ""
 
@@ -32,59 +34,105 @@ function generateGrid(gridSize) {
 
 
 // Initialize game, add bombs, set score to 0
-function startGame(gridSize) {
+function initializeGameLogic(gridSize, bombNum) {
 
     const tiles = document.querySelectorAll(".tile")
-    const bombTiles = randArray(1, gridSize, 16)
+    const scoreValue = document.getElementById("score-value")
+    const tileValue = document.getElementById("tile-value")
+    const bombValue = document.getElementById("bomb-value")
+    const bombTiles = randArray(1, gridSize, bombNum)
+
     let score = 0
+    let remainingTiles = gridSize - bombNum
     let gameState
 
-    bombTiles.forEach(function (element) {
-        tiles[element - 1].classList.add("bomb-tile-debug")
-    })
+    scoreValue.innerHTML = score
+    tileValue.innerHTML = remainingTiles
+    bombValue.innerHTML = bombNum
+
+    // bombTiles.forEach(function (element) {
+    //     tiles[element - 1].classList.add("bomb-tile-debug")
+    // })
 
     tiles.forEach(function (tile, i) {
-        tile.addEventListener("click", function () {
+        tile.addEventListener("click", function checkTile() {
 
-            const tileNum = i + 1
+            if (!gameState) {
 
-            if (!bombTiles.includes(tileNum)) {
+                const tileNum = i + 1
 
-                if (!tile.classList.contains("selected")) {
+                if (!bombTiles.includes(tileNum)) {
 
-                    tile.classList.add("selected")
-                    score++
-                    console.log(tileNum, score)
+                    if (!tile.classList.contains("selected")) {
 
-                    if (score === (gridSize - 16)) {
+                        tile.classList.add("selected")
+                        score++
+                        remainingTiles--
+                        scoreValue.innerHTML = score
+                        tileValue.innerHTML = remainingTiles
+                        console.log(tileNum, score, remainingTiles)
 
-                        bombTiles.forEach(function (element) {
-                            tiles[element - 1].classList.remove("bomb-tile-debug")
-                            tiles[element - 1].classList.add("bomb-tile")
-                        })
-                        
-                        console.log("you win!")
-                        console.log("Final Score = ", score)
-                        gameState = "win"
+                        if (remainingTiles === 0) {
+
+                            bombTiles.forEach(function (element) {
+                                tiles[element - 1].classList.remove("bomb-tile-debug")
+                                tiles[element - 1].classList.add("bomb-tile")
+                            })
+
+                            gameState = "win"
+                            gameEnd()
+
+                        }
                     }
+
+                } else {
+
+                    bombTiles.forEach(function (element) {
+                        tiles[element - 1].classList.remove("bomb-tile-debug")
+                        tiles[element - 1].classList.add("bomb-tile")
+                    })
+
+                    gameState = "lose"
+                    gameEnd()
+
                 }
-
-            } else {
-
-                bombTiles.forEach(function (element) {
-                    tiles[element - 1].classList.remove("bomb-tile-debug")
-                    tiles[element - 1].classList.add("bomb-tile")
-                })
-
-                console.log("you lose!")
-                console.log("Final Score = ", score)
-                gameState = "win"
 
             }
         })
+
     })
 
+    function gameEnd() {
 
+        const gameResult = document.createElement("div")
+        gameResult.className = "game-result"
+
+        if (gameState === "win") {
+
+            console.log("you win!")
+            console.log("Final Score = ", score)
+            gameResult.innerHTML = `
+            <h1 class = "display-1 fw-semibold">VICTORY</h1>
+            <h2 class = "display-4 fw-semibold">All ${score} tiles cleared!</h2>
+            `
+
+        } else if (gameState === "lose") {
+
+            console.log("you lose!")
+            console.log("Final Score = ", score)
+            gameState = "lose"
+            gameResult.innerHTML = `
+            <h1 class = "display-1 fw-semibold">GAME OVER</h1>
+            <h2 class = "display-4 fw-semibold">Final Score: ${score}</h2>
+            `
+        }
+
+        document.getElementById("grid-wrapper").append(gameResult)
+
+
+
+
+    }
 
 }
 
