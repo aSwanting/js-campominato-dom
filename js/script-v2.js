@@ -8,7 +8,7 @@ document.addEventListener("load", gameLoop())
 // Game Loop Function
 function gameLoop() {
 
-    
+
     // Variables
     const gridWrapper = document.getElementById("grid-wrapper")
     const playButton = document.getElementById("play-button")
@@ -47,7 +47,7 @@ function gameLoop() {
         score = 0
         bombNumber = parseInt(document.getElementById("bomb-number").value)
         remainingTiles = gameDifficulty() - bombNumber
-        bombTiles = randArray(1, gameDifficulty(), bombNumber)      
+        bombTiles = randArray(1, gameDifficulty(), bombNumber)
 
         scoreValue.innerHTML = score
         tileValue.innerHTML = remainingTiles
@@ -73,7 +73,6 @@ function gameLoop() {
 
         gridWrapper.innerHTML = ""
         gridWrapper.className = "grid-wrapper grid-" + gridSize
-        gridWrapper.addEventListener("mousedown", gameStateOnClick)
         gridWrapper.style.pointerEvents = "auto"
 
         scoreBoard.style.display = "flex"
@@ -84,6 +83,7 @@ function gameLoop() {
             gridWrapper.append(tile)
             tile.className = "tile"
             tile.id = tileNumber
+            tile.addEventListener("mousedown", gameStateOnClick)
         }
     }
 
@@ -95,18 +95,15 @@ function gameLoop() {
 
         if (!bombTiles.includes(parseInt(tile.id))) {
 
-            if (!tile.classList.contains("selected")) {
+            tile.removeEventListener("mousedown",gameStateOnClick)
+            tile.classList.add("selected")
+            tile.style.pointerEvents = "none"
+            score++
+            remainingTiles--
 
-                tile.classList.add("selected")
-                score++
-                remainingTiles--
-                console.log(score, remainingTiles)
-
-                scoreValue.innerHTML = score
-                tileValue.innerHTML = remainingTiles
-                bombValue.innerHTML = bombNumber
-
-            }
+            scoreValue.innerHTML = score
+            tileValue.innerHTML = remainingTiles
+            bombValue.innerHTML = bombNumber  
 
         } else {
 
@@ -124,11 +121,9 @@ function gameLoop() {
         let gameState = "ongoing"
 
         if (!bombHit && !remainingTiles) {
-            console.log("VICTORY", score)
             gameState = "win"
 
         } if (bombHit) {
-            console.log("DEFEAT", score)
             gameState = "lose"
         }
 
@@ -172,15 +167,14 @@ function gameLoop() {
     }
 
 
-    // Game State on Click
-    function gameStateOnClick(event) {
+    // GameState check onClick Function
+    function gameStateOnClick() {
 
-        if (winLossCheck(bombHitCheck(event.target)) !== "ongoing") {
+        if (winLossCheck(bombHitCheck(this)) !== "ongoing") {
 
-            gameEnd(winLossCheck(bombHitCheck(event.target)))
+            gameEnd(winLossCheck(bombHitCheck(this)))
             revealBombTiles()
 
-            gridWrapper.removeEventListener("mousedown", gameStateOnClick)
             gridWrapper.style.pointerEvents = "none"
 
         }
@@ -201,6 +195,7 @@ function gameLoop() {
 
         return randArrayOutput
     }
+
 
     // Random Number Function
     function rand(min, max) {
