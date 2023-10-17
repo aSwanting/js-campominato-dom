@@ -208,7 +208,10 @@ function gameLoop() {
                 }
             }
 
-            tile.innerHTML = surroundingBombCounter
+            if (surroundingBombCounter) {
+
+                tile.innerHTML = surroundingBombCounter
+            }
 
         });
     }
