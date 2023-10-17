@@ -11,13 +11,12 @@ function gameLoop() {
 
     // Variables
     const gridWrapper = document.getElementById("grid-wrapper")
-    const playButton = document.getElementById("play-button")
     const scoreBoard = document.getElementById("scoreboard")
     const scoreValue = document.getElementById("score-value")
     const tileValue = document.getElementById("tile-value")
     const bombValue = document.getElementById("bomb-value")
 
-
+    let tiles
     let gameOver
     let score
     let remainingTiles
@@ -26,13 +25,21 @@ function gameLoop() {
 
 
     // Start Game
-    playButton.addEventListener("click", () => {
+    document.getElementById("play-button").addEventListener("click", () => {
 
         // Reset Game Values
         gameReset()
 
         // Generate Grid
         generateGrid(gameDifficulty())
+
+    })
+
+
+    // Debug button
+    document.getElementById("debug-button").addEventListener("click", () => {
+
+        document.body.classList.toggle("debug")
 
     })
 
@@ -84,6 +91,16 @@ function gameLoop() {
             tile.id = tileNumber
             tile.addEventListener("mousedown", gameStateOnClick)
         }
+
+        tiles = document.querySelectorAll(".tile")
+
+        tiles.forEach((tile, index) => {
+
+            if (bombTiles.includes(index + 1)) {
+
+                tile.classList.add("bomb-tile-debug")
+            }
+        })
     }
 
 
@@ -104,6 +121,8 @@ function gameLoop() {
             tileValue.innerHTML = remainingTiles
             bombValue.innerHTML = bombNumber
 
+            surroundBombsCount(tile)
+
         } else {
 
             tile.classList.add("bomb-tile")
@@ -113,6 +132,87 @@ function gameLoop() {
         return bombHit
 
     }
+
+
+
+    // Count Surrounding Bombs Function
+    function surroundBombsCount(tile) {
+
+        const tileNumber = parseInt(tile.id)
+
+        // Square root of grid size, for position calculation
+        const gridRoot = Math.sqrt(gameDifficulty())
+
+        const neighbouringTiles = []
+        const leftTiles = []
+        const rightTiles = []
+
+        let tileTop, tileBottom, tileTopLeft, tileLeft, tileBottomLeft, tileTopRight, tileRight, tileBottomRight
+        let surroundingBombCounter = 0
+
+        // Find Tiles in first and last column
+        for (let i = 0; i < gridRoot; i++) {
+
+            let leftTile = i * gridRoot
+            leftTiles.push(leftTile)
+
+            let rightTile = leftTile + gridRoot - 1
+            rightTiles.push(rightTile)
+
+        }
+
+        // Get Tile above and below
+        tileTop = tileNumber - gridRoot
+        tileBottom = tileNumber + gridRoot
+
+        // If clicked tile is not in first column, get left tile positions
+        leftTiles.forEach(element => {
+            if (!leftTiles.includes(tileNumber - 1)) {
+
+                tileTopLeft = tileNumber - gridRoot - 1
+                tileLeft = tileNumber - 1
+                tileBottomLeft = tileNumber + gridRoot - 1
+            }
+        });
+
+        // If clicked tile is not in last column, get right tile positions
+        rightTiles.forEach(element => {
+            if (!rightTiles.includes(tileNumber - 1)) {
+
+                tileTopRight = tileNumber - gridRoot + 1
+                tileRight = tileNumber + 1
+                tileBottomRight = tileNumber + gridRoot + 1
+            }
+        });
+
+        // Push surrounding tile values to array
+        neighbouringTiles.push(tileTop, tileBottom, tileTopLeft, tileLeft, tileBottomLeft, tileTopRight, tileRight, tileBottomRight)
+
+
+        // Check each surrounding tile for a bomb
+        neighbouringTiles.forEach(element => {
+
+            if (element > 0 && element < gameDifficulty() + 1) {
+
+                if (!bombTiles.includes(element)) {
+
+                    // Color for debugging
+                    tiles[element - 1].classList.add("surrounding-tiles")
+
+                } else {
+
+                    // Color for debugging
+                    tiles[element - 1].classList.add("surrounding-bomb-tiles")
+
+                    surroundingBombCounter++
+                }
+            }
+
+            tile.innerHTML = surroundingBombCounter
+
+        });
+    }
+
 
 
     // Win Loss Function
@@ -133,11 +233,11 @@ function gameLoop() {
     // Reveal Bomb Tiles
     function revealBombTiles() {
 
-        const tiles = document.querySelectorAll(".tile")
         tiles.forEach((tile, index) => {
 
             if (bombTiles.includes(index + 1)) {
 
+                tile.classList.remove("bomb-tile-debug")
                 tile.classList.add("bomb-tile")
             }
 

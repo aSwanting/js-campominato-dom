@@ -10,29 +10,31 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
-<body class="debug">
+<body>
 
     <main class="app">
-
+        
+        <button class="btn btn-success debug-button" id="debug-button">Toggle Debug</button>
+        
         <div class="app-main">
-
+            
             <h1 class="display-2 text-center text-white mb-5">MineSweeper</h1>
-
+            
             <div class="grid-wrapper" id="grid-wrapper"> </div>
-
+            
             <div class="scoreboard" id="scoreboard">
                 <div class="score">Score: <span id="score-value"></span></div>
                 <div class="tiles-left">Remaining Safe Tiles: <span id="tile-value"></span></div>
                 <div class="current-bomb-tiles">Bomb Tiles: <span id="bomb-value"></span></div>
             </div>
-
+            
         </div>
-
+                
         <div class="app-toolbar">
             <div class="container">
-
+                
                 <div class="row">
-
+                    
                     <div class="col">
                         <select class="form-select level-select" id="level-select">
                             <option value="0">Easy</option>
@@ -40,11 +42,11 @@
                             <option value="2">Hard</option>
                         </select>
                     </div>
-
+                    
                     <div class="col col-sm-6">
                         <button class="btn btn-success play-button" id="play-button">Play!</button>
                     </div>
-
+                    
                     <div class="col">
                         <select class="form-select bomb-number" id="bomb-number">
                             <option value="8">8 bombs</option>
@@ -53,10 +55,10 @@
                             <option value="32">32 bombs</option>
                         </select>
                     </div>
-
+                    
                 </div>
             </div>
-
+            
         </div>
 
     </main>
