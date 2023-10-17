@@ -20,6 +20,7 @@ function gameLoop() {
     let bombTiles
 
 
+
     // Start Game
     playButton.addEventListener("click", () => {
 
@@ -33,17 +34,6 @@ function gameLoop() {
     })
 
 
-    // Check Tile on Click
-    gridWrapper.addEventListener("mousedown", (event) => {
-
-        if (winLossCheck(bombHitCheck(event.target)) !== "ongoing") {
-
-            gameEnd((winLossCheck(bombHitCheck(event.target))))
-            revealBombTiles()
-
-        }
-    })
-
 
     /* ---------------------------------------- FUNCTIONS ---------------------------------------- */
 
@@ -54,7 +44,7 @@ function gameLoop() {
         score = 0
         bombNumber = parseInt(document.getElementById("bomb-number").value)
         remainingTiles = gameDifficulty() - bombNumber
-        bombTiles = randArray(1, gameDifficulty(), bombNumber)
+        bombTiles = randArray(1, gameDifficulty(), bombNumber)      
 
         scoreValue.innerHTML = score
         tileValue.innerHTML = remainingTiles
@@ -78,10 +68,12 @@ function gameLoop() {
     // Grid Generation Function
     function generateGrid(gridSize) {
 
-        gridWrapper.className = "grid-wrapper grid-" + gridSize
         gridWrapper.innerHTML = ""
-        scoreBoard.style.display = "flex"
+        gridWrapper.className = "grid-wrapper grid-" + gridSize
+        gridWrapper.addEventListener("mousedown", gameStateOnClick)
+        gridWrapper.style.pointerEvents = "auto"
 
+        scoreBoard.style.display = "flex"
 
         for (let i = 0; i < gridSize; i++) {
             let tileNumber = i + 1
@@ -172,9 +164,23 @@ function gameLoop() {
         <h2 class = "display-4 fw-semibold">Final Score: ${score}</h2>`
         }
 
-        gridWrapper.style.pointerEvents = "none"
         document.getElementById("grid-wrapper").append(gameResult)
 
+    }
+
+
+    // Game State on Click
+    function gameStateOnClick(event) {
+
+        if (winLossCheck(bombHitCheck(event.target)) !== "ongoing") {
+
+            gameEnd(winLossCheck(bombHitCheck(event.target)))
+            revealBombTiles()
+            
+            gridWrapper.removeEventListener("mousedown", gameStateOnClick)
+            gridWrapper.style.pointerEvents = "none"
+
+        }
     }
 
 
