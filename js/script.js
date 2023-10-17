@@ -109,19 +109,12 @@ function initializeGameLogic(gridSize, bombNum) {
         gameResult.className = "game-result"
 
         if (gameState === "win") {
-
-            console.log("you win!")
-            console.log("Final Score = ", score)
             gameResult.innerHTML = `
             <h1 class = "display-1 fw-semibold">VICTORY</h1>
             <h2 class = "display-4 fw-semibold">All ${score} tiles cleared!</h2>
             `
 
         } else if (gameState === "lose") {
-
-            console.log("you lose!")
-            console.log("Final Score = ", score)
-            gameState = "lose"
             gameResult.innerHTML = `
             <h1 class = "display-1 fw-semibold">GAME OVER</h1>
             <h2 class = "display-4 fw-semibold">Final Score: ${score}</h2>
