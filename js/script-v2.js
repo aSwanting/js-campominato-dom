@@ -1,10 +1,14 @@
 "use strict"
 
-gameLoop()
+
+// Initialize Game loop
+document.addEventListener("load", gameLoop())
+
 
 // Game Loop Function
 function gameLoop() {
 
+    
     // Variables
     const gridWrapper = document.getElementById("grid-wrapper")
     const playButton = document.getElementById("play-button")
@@ -13,12 +17,12 @@ function gameLoop() {
     const tileValue = document.getElementById("tile-value")
     const bombValue = document.getElementById("bomb-value")
 
+
     let gameOver
     let score
     let remainingTiles
     let bombNumber
     let bombTiles
-
 
 
     // Start Game
@@ -30,12 +34,11 @@ function gameLoop() {
         // Generate Grid
         generateGrid(gameDifficulty())
 
-
     })
 
 
+    /* ---------------------------------------- GAME LOOP FUNCTIONS ---------------------------------------- */
 
-    /* ---------------------------------------- FUNCTIONS ---------------------------------------- */
 
     // Reset Game Function
     function gameReset() {
@@ -176,7 +179,7 @@ function gameLoop() {
 
             gameEnd(winLossCheck(bombHitCheck(event.target)))
             revealBombTiles()
-            
+
             gridWrapper.removeEventListener("mousedown", gameStateOnClick)
             gridWrapper.style.pointerEvents = "none"
 
