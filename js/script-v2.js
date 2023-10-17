@@ -73,7 +73,6 @@ function gameLoop() {
 
         gridWrapper.innerHTML = ""
         gridWrapper.className = "grid-wrapper grid-" + gridSize
-        gridWrapper.style.pointerEvents = "auto"
 
         scoreBoard.style.display = "flex"
 
@@ -95,7 +94,7 @@ function gameLoop() {
 
         if (!bombTiles.includes(parseInt(tile.id))) {
 
-            tile.removeEventListener("mousedown",gameStateOnClick)
+            tile.removeEventListener("mousedown", gameStateOnClick)
             tile.classList.add("selected")
             tile.style.pointerEvents = "none"
             score++
@@ -103,7 +102,7 @@ function gameLoop() {
 
             scoreValue.innerHTML = score
             tileValue.innerHTML = remainingTiles
-            bombValue.innerHTML = bombNumber  
+            bombValue.innerHTML = bombNumber
 
         } else {
 
@@ -141,6 +140,10 @@ function gameLoop() {
 
                 tile.classList.add("bomb-tile")
             }
+
+            tile.removeEventListener("mousedown", gameStateOnClick)
+            tile.style.pointerEvents = "none"
+
         });
     }
 
@@ -174,8 +177,6 @@ function gameLoop() {
 
             gameEnd(winLossCheck(bombHitCheck(this)))
             revealBombTiles()
-
-            gridWrapper.style.pointerEvents = "none"
 
         }
     }
