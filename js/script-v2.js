@@ -116,6 +116,7 @@ function gameLoop() {
             tile.style.pointerEvents = "none"
             score++
             remainingTiles--
+            console.log(remainingTiles)
 
             scoreValue.innerHTML = score
             tileValue.innerHTML = remainingTiles
@@ -278,7 +279,7 @@ function gameLoop() {
 
         if (winLossCheck(bombHitCheck(this)) !== "ongoing") {
 
-            gameEnd(winLossCheck(bombHitCheck(this)))
+            gameEnd(winLossCheck())
             revealBombTiles()
 
         }

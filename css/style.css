@@ -150,3 +150,6 @@
 }
 
 
+.debug .tile.selected {
+    background-color: rgba(42, 151, 109, 0.5);
+}
